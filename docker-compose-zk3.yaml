@@ -1,0 +1,30 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+#
+version: '2'
+
+services:
+  zk3:
+    container_name: zk3
+    hostname: zk3
+    image: hyperledger/fabric-zookeeper:0.4.14
+    restart: always
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zk1:2888:3888 server.2=zk2:2888:3888 server.3=zk3:2888:3888
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+    extra_hosts:
+      - "zk1:192.168.31.86"
+      - "zk2:192.168.31.168"
+      - "zk3:192.168.31.121"
+      - "kafka1:192.168.31.86"
+      - "kafka2:192.168.31.168"
+      - "kafka3:192.168.31.121"
+      - "kafka4:192.168.31.231"
+
+

@@ -1,0 +1,33 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '2'
+
+services:
+  kafka2:
+    container_name: kafka2
+    hostname: kafka2
+    image: hyperledger/fabric-kafka:0.4.14
+    restart: always
+    environment:
+      - KAFKA_MESSAGE_MAX_BYTES=103809024 # 99 * 1024 * 1024 B
+      - KAFKA_REPLICA_FETCH_MAX_BYTES=103809024 # 99 * 1024 * 1024 B
+      - KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE=false
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_ZOOKEEPER_CONNECT=zk1:2181,zk2:2181,zk3:2181
+    ports:
+      - 9092:9092
+    extra_hosts:
+      - "zk1:192.168.31.86"
+      - "zk2:192.168.31.168"
+      - "zk3:192.168.31.121"
+      - "kafka1:192.168.31.86"
+      - "kafka2:192.168.31.168"
+      - "kafka3:192.168.31.121"
+      - "kafka4:192.168.31.231"
+
